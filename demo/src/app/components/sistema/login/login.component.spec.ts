@@ -58,4 +58,12 @@ describe('LoginComponent', () => {
     let elemento = fixture.debugElement.query(By.css('input[name="loginPassword"]'));
     expect(elemento.nativeElement.ngModel).not.toBe(null);
   });
+
+  it('should call logar method when form is submitted', () => {
+    spyOn(component, 'logar');
+    const form = fixture.debugElement.query(By.css('form'));
+    form.triggerEventHandler('ngSubmit', null);
+    expect(component.logar).toHaveBeenCalled();
+  });
+  
 });

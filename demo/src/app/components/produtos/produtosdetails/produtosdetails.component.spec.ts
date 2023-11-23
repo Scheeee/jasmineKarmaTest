@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ProdutosdetailsComponent } from './produtosdetails.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Produto } from 'src/app/models/produto';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('ProdutosdetailsComponent', () => {
   let component: ProdutosdetailsComponent;
@@ -70,5 +70,25 @@ describe('ProdutosdetailsComponent', () => {
     component.salvar();
     expect(component.retorno.emit).toHaveBeenCalled();
   }));
+
+  it('salvar com erro', () => {
+    spyOn(component.retorno, 'emit');
+    spyOn(component['produtosService'], 'save').and.returnValue(throwError('Simulated error'));
+    component.salvar();
+  
+    expect(component.retorno.emit).not.toHaveBeenCalled();
+  });
+
+  it('erro', fakeAsync(() => {
+    spyOn(window, 'alert');
+    spyOn(component['produtosService'], 'save').and.returnValue(throwError('Simulated error'));
+
+    component.salvar();
+    tick(); 
+
+    expect(window.alert).toHaveBeenCalledWith('Exemplo de tratamento de erro/exception! Observe o erro no console!');
+   
+  }));
+  
 
 });
