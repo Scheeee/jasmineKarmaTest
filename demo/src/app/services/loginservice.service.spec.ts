@@ -44,9 +44,7 @@ describe('LoginService', () => {
     service.removerToken();
     expect(localStorage.getItem('token')).toBeNull();
   });
-  
- it('teste hasPermission', () => {
-
+   it('teste hasPermission', () => {
   const role = 'ADMIN';
     service.hasPermission(role);
     expect(service.hasPermission(role)).toBeTrue;

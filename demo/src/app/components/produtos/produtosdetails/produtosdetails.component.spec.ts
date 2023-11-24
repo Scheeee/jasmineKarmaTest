@@ -73,7 +73,7 @@ describe('ProdutosdetailsComponent', () => {
 
   it('salvar com erro', () => {
     spyOn(component.retorno, 'emit');
-    spyOn(component['produtosService'], 'save').and.returnValue(throwError('Simulated error'));
+    spyOn(component['produtosService'], 'save').and.returnValue(throwError('erro'));
     component.salvar();
   
     expect(component.retorno.emit).not.toHaveBeenCalled();
@@ -81,7 +81,7 @@ describe('ProdutosdetailsComponent', () => {
 
   it('erro', fakeAsync(() => {
     spyOn(window, 'alert');
-    spyOn(component['produtosService'], 'save').and.returnValue(throwError('Simulated error'));
+    spyOn(component['produtosService'], 'save').and.returnValue(throwError('erro'));
 
     component.salvar();
     tick(); 
